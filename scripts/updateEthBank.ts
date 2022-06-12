@@ -8,19 +8,14 @@ import { ethers, upgrades } from "hardhat";
 dotenv.config();
 
 async function main() {
-  const ERC20Token1 = await ethers.getContractFactory("ERC20Token1");
-  const erc20Token1Args: any[] = [];
-  const erc20Token1 = await ERC20Token1.deploy(...erc20Token1Args);
-  await erc20Token1.deployed();
 
-  // Deploy EthBank V1
-  const EthBank = await ethers.getContractFactory("EthBank");
-  const ethBank = await upgrades.deployProxy(EthBank);
+  const ethBankAddress: any = process.env.ETHBANK_ADDRESS; // EthBank v1 Address
 
   // Upgrade EthBank V2
   const EthBankV2 = await ethers.getContractFactory("EthBankV2");
-  const ethBankV2 = await upgrades.upgradeProxy(ethBank.address, EthBankV2);
+  const ethBankV2 = await upgrades.upgradeProxy(ethBankAddress, EthBankV2);
   await ethBankV2.upgrade();
+  console.log("ETH BANK V2: ", ethBankV2.address)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
