@@ -1,4 +1,4 @@
-# The Letscollect Project
+# The ETH Bank Upgradable Proxy
 
 ## 1. Installation and Deployment
 ```shell
